@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:14:39 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/15 16:22:17 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:30:43 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	exec_process(char *str, char **envp)
 	execve(path, mycmdargs, envp);
 }
 
-void	parent_process(char **str, char **str1, int *end)
+void	second_process(char **str, char **str1, int *end)
 {
 	int	outfile;
 
@@ -75,7 +75,7 @@ void	parent_process(char **str, char **str1, int *end)
 	exec_process(str[3], str1);
 }
 
-void	child_process(char **str, char **str1, int *end)
+void	first_process(char **str, char **str1, int *end)
 {
 	int	infile;
 
@@ -103,12 +103,12 @@ int	main(int ac, char **str, char **envp)
 	if (pid_child == -1)
 		error();
 	if (pid_child == 0)
-		child_process(str, envp, end);
+		first_process(str, envp, end);
 	pid_child1 = fork();
 	if (pid_child == -1)
 		error();
 	if (pid_child1 == 0)
-		parent_process(str, envp, end);
+		second_process(str, envp, end);
 	close(end[1]);
 	close(end[0]);
 	waitpid(pid_child, NULL, 0);
