@@ -6,37 +6,36 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:47:35 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/17 18:53:45 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:17:43 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/types.h>
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
+# include <stddef.h>
 # include <stdlib.h>
+# include <sys/types.h>
 # include <sys/wait.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <string.h>
 
-char	*ft_join(char *str, char *sep);
-void	pipex(char **str, char **str1);
-void	exec_process(char *str, char **envp);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	**ft_split(char const *s, char c);
-int		ft_strlen(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strnstr(const char *str, const char *to_find, size_t n);
-char	*ft_june(const char *str);
-void	error(void);
-char	*str_remove_whitespace(char *str);
-void	ft_putstr_fd(char *str, int fd);
-void	clearmem(char **str);
+typedef struct data
+{
+	int	prev;
+	int	cmds;
+	int	fd_out;
+	int	fd_in;
+	int	here_doc[2];
+	int	is_here_doc;
+}t_data;
+
+void	exec_process(t_data *data, char *str, char **envp, int *pipes);
 void	not_find(char **mycmdargs);
-int		search_for_abs(char *str);
-
+void	error(void);
+void	ft_freetab(char **str);
+char	*find_path(char *cmd, char **envp);
+char	*path_is_ok(char **paths, char *cmd);
+void	process(char **argv, char **envp, t_data *data);
+char	*ft_strjoin(char const *s1, char const *s2);
+void	here_doc(char *argv, t_data *data);
 #endif

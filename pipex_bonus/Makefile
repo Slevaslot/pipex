@@ -1,9 +1,14 @@
-
 PROG	= pipex
+SRCS 	= pipex.c \
+		pipex_utils.c \
+		here_doc.c \
+		get_next_line/get_next_line.c \
+		get_next_line/get_next_line_utils.c \
 
 
-SRCS 	= pipex.c pipex_utils.c ft_split.c ft_substr.c
-OBJS 	= ${SRCS:.c=.o}
+
+OBJS 	= ${SRCS:.c=.o} ${SRCS_LIBFT:.c=.o}
+LIBS = libft/libft.a
 #MAIN	= pipex.c
 
 #SRCS_B	= srcs/pipex_bonus.c srcs/utils.c srcs/utils_bonus.c
@@ -12,8 +17,8 @@ OBJS 	= ${SRCS:.c=.o}
 
 
 
+CFLAGS 	= -Wall -Wextra -Werror
 CC 		= gcc
-CFLAGS 	= -Wall -Wextra -Werror -g3
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -21,16 +26,16 @@ CFLAGS 	= -Wall -Wextra -Werror -g3
 all: 		${PROG}
 
 ${PROG}:	${OBJS}
-
-					@$(CC) ${OBJS} -o ${PROG}
-					@echo "Pipex Compiled!\n"
+					@make -C libft/
+					@$(CC) ${OBJS} ${LIBS} -o ${PROG}
+					@echo "pipex Compiled!\n"
 
 
 bonus:		${PROG_B}
 
 ${PROG_B}:	${OBJS_B}
 
-					@echo "\Pipex Bonus Compiled! \n"
+					@echo "\pipex Bonus Compiled! \n"
 
 clean:
 

@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:38:08 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/17 18:00:22 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:37:49 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,50 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strnstr(const char *str, const char *to_find, size_t n)
+char	*path_is_ok(char **paths, char *cmd)
 {
-	size_t			i;
-	size_t			j;
-	char			*big;
-	char			*lit;
+	char	*fpath;
+	char	*part_path;
+	int		i;
 
 	i = 0;
-	j = 0;
-	if (!str && n == 0)
-		return (0);
-	big = (char *)str;
-	lit = (char *)to_find;
-	if (lit[j] == '\0')
-		return (&big[i]);
-	while (big[i] && i < n)
+	while (paths[i])
 	{
-		while (lit[j] && i + j < n && big[i + j] == lit[j])
-			j++;
-		if (lit[j] == '\0')
-			return ((char *)&big[i]);
-		j = 0;
+		part_path = ft_strjoin(paths[i], "/");
+		if (!part_path)
+			return (free(part_path), NULL);
+		fpath = ft_strjoin(part_path, cmd);
+		free(part_path);
+		if (!fpath)
+			return (free(fpath), NULL);
+		if (access(fpath, F_OK | X_OK) == 0)
+			return (fpath);
+		free(fpath);
 		i++;
 	}
 	return (NULL);
+}
+
+char	*find_path(char *cmd, char **envp)
+{
+	char	**paths;
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (access(cmd, F_OK | X_OK) == 0)
+		return (cmd);
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+		i++;
+	paths = ft_split(envp[i] + 5, ':');
+	if (!paths)
+		return (ft_freetab(paths), NULL);
+	i = 0;
+	str = path_is_ok(paths, cmd);
+	ft_freetab(paths);
+	if (!str)
+		return (free(str), NULL);
+	return (str);
 }
 
 void	error(void)
@@ -72,35 +91,14 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-char	*str_remove_whitespace(char *str)
+void	not_find(char **mycmdargs)
 {
-	int		i;
-	char	*strr;
-
-	i = 0;
-	while (str[i] && str[i] != ' ')
-		i++;
-	strr = malloc(sizeof(char) * i);
-	i = 0;
-	while (str[i] && str[i] != ' ')
+	ft_putstr_fd("pipex: command not found: ", 2);
+	if (mycmdargs[0])
 	{
-		if (str[i] < 32)
-			return (strr);
-		strr[i] = str[i];
-		i++;
+		ft_putstr_fd(mycmdargs[0], 2);
+		ft_freetab(mycmdargs);
 	}
-	strr[i] = '\0';
-	return (strr);
-}
-
-void	clearmem(char **str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		free(str[i]);
-	}
-	free(str);
+	ft_putstr_fd("\n", 2);
+	exit(EXIT_FAILURE);
 }

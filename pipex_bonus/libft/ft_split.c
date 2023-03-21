@@ -6,42 +6,11 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:37:57 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/17 18:54:44 by slevaslo         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:16:21 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	search_for_abs(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '/')
-		{
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-void	not_find(char **mycmdargs)
-{
-	if (errno == 13)
-		ft_putstr_fd("\033[31;5mpipex\033[0m : permission denied: ", 2);
-	else
-		ft_putstr_fd("\033[31;5mpipex\033[0m : command not found: ", 2);
-	if (mycmdargs[0][0] != '\0')
-	{
-		ft_putstr_fd(mycmdargs[0], 2);
-		clearmem(mycmdargs);
-	}
-	ft_putstr_fd("\n", 2);
-	exit(EXIT_FAILURE);
-}
+#include "libft.h"
 
 static void	clearmemory(char **str)
 {
