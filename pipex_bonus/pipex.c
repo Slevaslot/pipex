@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 14:48:01 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/20 19:03:45 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:43:11 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	exec_process(t_data *data, char *str, char **envp, int *pipes)
 {
 	char	**mycmdargs;
 	char	*path;
-	(void)pipes;
-	(void)data;
+
 	mycmdargs = ft_split(str, ' ');
 	if (!mycmdargs)
 		return (ft_freetab(mycmdargs));
@@ -88,7 +87,6 @@ void	savencloses(int i, int pipes[2], t_data *data)
 		close(data->prev);
 		close(pipes[0]);
 	}
-	// close(data->fd_in);
 }
 
 void	process(char **argv, char **envp, t_data *data)
@@ -113,7 +111,7 @@ void	process(char **argv, char **envp, t_data *data)
 		savencloses(i, pipes, data);
 	i++;
 	}
-	while(i > 0)
+	while (i > 0)
 	{
 		wait(0);
 		i--;
