@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:47:35 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/20 18:17:43 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:43:08 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ char	*path_is_ok(char **paths, char *cmd);
 void	process(char **argv, char **envp, t_data *data);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	here_doc(char *argv, t_data *data);
+void	second_part_dupnclose(int i, int pipes[2], t_data *data);
 #endif

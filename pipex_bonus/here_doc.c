@@ -6,11 +6,35 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:34:49 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/17 18:34:08 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:42:55 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	second_part_dupnclose(int i, int pipes[2], t_data *data)
+{
+	if (i == data->cmds - 1)
+	{
+		if (data->fd_out == -1)
+		{
+			close(pipes[1]);
+			close(pipes[0]);
+			error();
+		}
+		dup2(data->prev, STDIN_FILENO);
+		dup2(data->fd_out, STDOUT_FILENO);
+		close(data->prev);
+		close(data->fd_out);
+	}
+	else
+	{
+		dup2(data->prev, STDIN_FILENO);
+		dup2(pipes[1], STDOUT_FILENO);
+		close(data->prev);
+		close(pipes[1]);
+	}
+}
 
 void	ft_freetab(char **str)
 {
