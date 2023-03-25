@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:14:39 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/20 14:30:23 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:50:17 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ void	exec_process(char *str, char **envp)
 		path = find_path(mycmdargs[0], envp);
 	if (!path)
 	{
-		not_find(mycmdargs);
 		if (path == 0)
 		{
+			not_find(mycmdargs);
 			while (mycmdargs[++i])
 				free(mycmdargs[i]);
 			free(mycmdargs);
-			error();
 		}
 	}
 	else

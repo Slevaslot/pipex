@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:47:35 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/17 18:53:45 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:18:45 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	ft_putstr_fd(char *str, int fd);
 void	clearmem(char **str);
 void	not_find(char **mycmdargs);
 int		search_for_abs(char *str);
+void	check_cmd(char *str, char **envp);
+char	*find_path(char *cmd, char **envp);
 
 #endif

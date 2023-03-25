@@ -2,7 +2,7 @@
 PROG	= pipex
 
 
-SRCS 	= pipex.c pipex_utils.c ft_split.c ft_substr.c
+SRCS 	= pipex.c pipex_utils.c ft_split.c ft_substr.c check_cmd.c
 OBJS 	= ${SRCS:.c=.o}
 #MAIN	= pipex.c
 
