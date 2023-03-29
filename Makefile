@@ -6,11 +6,15 @@ SRCS 	= pipex.c pipex_utils.c ft_split.c ft_substr.c check_cmd.c
 OBJS 	= ${SRCS:.c=.o}
 #MAIN	= pipex.c
 
-#SRCS_B	= srcs/pipex_bonus.c srcs/utils.c srcs/utils_bonus.c
-#OBJS_B	= ${SRCS_B:.c=.o}
-#MAIN_B	= pipex_bonus.c
+SRCS_B	=	pipex_bonus/pipex_bonus.c \
+		pipex_bonus/pipex_utils_bonus.c \
+		pipex_bonus/here_doc.c \
+		pipex_bonus/get_next_line/get_next_line.c \
+		pipex_bonus/get_next_line/get_next_line_utils.c \
 
-
+LIBS = pipex_bonus/libft/libft.a
+OBJS_B	= ${SRCS_B:.c=.o}
+PROG_B = pipex_bonus
 
 CC 		= gcc
 CFLAGS 	= -Wall -Wextra -Werror -g3
@@ -22,15 +26,15 @@ all: 		${PROG}
 
 ${PROG}:	${OBJS}
 
-					@$(CC) ${OBJS} -o ${PROG}
+					@gcc $(CFLAGS) ${OBJS} -o ${PROG}
 					@echo "Pipex Compiled!\n"
-
 
 bonus:		${PROG_B}
 
 ${PROG_B}:	${OBJS_B}
-
-					@echo "\Pipex Bonus Compiled! \n"
+					@gcc $(CFLAGS) ${OBJS_B} ${LIBS}
+					@make -C pipex_bonus/libft/
+					@echo "pipex_bonus Compiled!\n"
 
 clean:
 
@@ -45,4 +49,4 @@ re:			fclean all
 
 re_bonus:	fclean bonus
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

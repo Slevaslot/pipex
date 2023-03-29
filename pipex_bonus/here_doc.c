@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:34:49 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/25 15:58:13 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:26:47 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void	here_doc(char *argv, t_data *data)
 	char	*buf;
 
 	data->is_here_doc = 1;
-	pipe (data->here_doc);
+	if (pipe (data->here_doc) == -1)
+		return ;
 	while (1)
 	{
 		write(1, "heredoc> ", 9);

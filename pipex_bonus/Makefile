@@ -1,6 +1,6 @@
 PROG	= pipex_bonus
-SRCS 	= pipex.c \
-		pipex_utils.c \
+SRCS 	= pipex_bonus.c \
+		pipex_utils_bonus.c \
 		here_doc.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
@@ -17,7 +17,7 @@ LIBS = libft/libft.a
 
 
 
-CFLAGS 	= -Wall -Wextra -Werror
+CFLAGS 	=
 CC 		= gcc
 
 %.o: %.c
