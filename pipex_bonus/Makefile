@@ -21,7 +21,7 @@ CFLAGS 	=
 CC 		= gcc
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 all: 		${PROG}
 

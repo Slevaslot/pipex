@@ -31,9 +31,9 @@ int	search_for_abs(char *str)
 void	not_find(char **mycmdargs)
 {
 	if (errno == 13)
-		ft_putstr_fd("\033[31;5mpipex\033[0m : permission denied: \n", 2);
+		ft_putstr_fd("\033[31;5mpipex\033[0m : permission denied: ", 2);
 	else
-		ft_putstr_fd("\033[31;5mpipex\033[0m : command not found: \n", 2);
+		ft_putstr_fd("\033[31;5mpipex\033[0m : command not found: ", 2);
 	if (mycmdargs[0][0] != '\0')
 	{
 		ft_putstr_fd(mycmdargs[0], 2);

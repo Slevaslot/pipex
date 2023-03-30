@@ -14,13 +14,13 @@ SRCS_B	=	pipex_bonus/pipex_bonus.c \
 
 LIBS = pipex_bonus/libft/libft.a
 OBJS_B	= ${SRCS_B:.c=.o}
-PROG_B = pipex_bonus
+PROG_B = pipex_bonuss
 
 CC 		= gcc
 CFLAGS 	= -Wall -Wextra -Werror -g3
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@gcc $(CFLAGS) -c $< -o $@
 
 all: 		${PROG}
 
@@ -43,6 +43,7 @@ clean:
 fclean: 	clean
 					@rm -f $(NAME)
 					@rm -f ${PROG}
+					@rm -f ${PROG_B}
 					@echo "\nDelete ALL!\n"
 
 re:			fclean all

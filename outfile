@@ -1,1 +1,15 @@
-      0       0       0
+Makefile
+check_cmd.c
+check_cmd.o
+ft_split.c
+ft_split.o
+ft_substr.c
+ft_substr.o
+outfile
+pipex
+pipex.c
+pipex.h
+pipex.o
+pipex_bonus
+pipex_utils.c
+pipex_utils.o
