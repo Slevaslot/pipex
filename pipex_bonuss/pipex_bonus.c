@@ -51,7 +51,7 @@ void	dupncloses(int i, int pipes[2], t_data *data)
 		dup2(pipes[1], STDOUT_FILENO);
 		close(pipes[1]);
 	}
-	else if (i == data->cmds - 1)
+	else
 		second_part_dupnclose(i, pipes, data);
 	close(pipes[0]);
 }

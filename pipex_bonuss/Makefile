@@ -1,4 +1,4 @@
-PROG	= pipex_bonus
+PROG	= ../pipex_bonus
 SRCS 	= pipex_bonus.c \
 		pipex_utils_bonus.c \
 		here_doc.c \
@@ -21,14 +21,13 @@ CFLAGS 	=
 CC 		= gcc
 
 %.o: %.c
-	@gcc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: 		${PROG}
 
 ${PROG}:	${OBJS}
 					@make -C libft/
-					@$(CC) ${OBJS} ${LIBS} -o ${PROG}
-					@echo "pipex_bonus Compiled!\n"
+					@cc ${OBJS} ${LIBS} -o ${PROG}
 
 
 bonus:		${PROG_B}

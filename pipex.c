@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:14:39 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/25 15:50:17 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:14:30 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,21 @@ char	*find_path(char *cmd, char **envp)
 	char	*part_path;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+	while (envp && envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
-	paths = ft_split(envp[i] + 5, ':');
-	i = 0;
-	while (paths[i])
+	if (!envp || !envp[i])
+		return (NULL);
+	else
+		paths = ft_split(envp[i] + 5, ':');
+	i = -1;
+	while (paths[++i])
 	{
 		part_path = ft_strjoin(paths[i], "/");
 		fpath = ft_strjoin(part_path, cmd);
 		free(part_path);
 		if (access(fpath, F_OK | X_OK) == 0)
-		{
-			clearmem(paths);
-			return (fpath);
-		}
+			return (clearmem(paths), fpath);
 		free(fpath);
-		i++;
 	}
 	clearmem(paths);
 	return (0);
@@ -45,9 +44,8 @@ void	exec_process(char *str, char **envp)
 {
 	char	**mycmdargs;
 	char	*path;
-	int		i;
 
-	i = -1;
+	path = NULL;
 	if (str[0] == '\0')
 		return (not_find(&str));
 	mycmdargs = ft_split(str, ' ');
@@ -57,16 +55,16 @@ void	exec_process(char *str, char **envp)
 		path = find_path(mycmdargs[0], envp);
 	if (!path)
 	{
-		if (path == 0)
+		if (path == 0 || path == NULL)
 		{
-			not_find(mycmdargs);
-			while (mycmdargs[++i])
-				free(mycmdargs[i]);
-			free(mycmdargs);
+			if (path == 0)
+				not_find(mycmdargs);
+			clearmem(mycmdargs);
 		}
 	}
 	else
-		execve(path, mycmdargs, envp);
+		if (execve(path, mycmdargs, envp) == -1)
+			return (not_find(mycmdargs), clearmem(mycmdargs));
 }
 
 void	second_process(char **str, char **str1, int *end)
@@ -79,6 +77,7 @@ void	second_process(char **str, char **str1, int *end)
 		close(end[1]);
 		close(end[0]);
 		error();
+		return ;
 	}
 	if (dup2(outfile, STDOUT_FILENO) == -1)
 		error();
@@ -100,14 +99,15 @@ void	first_process(char **str, char **str1, int *end)
 		close(end[1]);
 		close(end[0]);
 		error();
+		return ;
 	}
 	if (dup2(end[1], STDOUT_FILENO) == -1)
 		error();
 	if (dup2(infile, STDIN_FILENO) == -1)
 		error();
+	close(end[1]);
 	close(end[0]);
 	close(infile);
-	close(end[1]);
 	exec_process(str[2], str1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:37:57 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/25 15:11:05 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:02:56 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,12 @@
 
 int	search_for_abs(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	if (str[0] == '/')
 	{
-		if (str[i] == '/')
-		{
-			return (1);
-		}
-		i++;
+		return (1);
 	}
-	return (0);
+	else
+		return (0);
 }
 
 void	not_find(char **mycmdargs)
