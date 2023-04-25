@@ -6,7 +6,7 @@
 #    By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 17:54:35 by slevaslo          #+#    #+#              #
-#    Updated: 2023/03/13 14:30:08 by slevaslo         ###   ########.fr        #
+#    Updated: 2023/04/13 15:55:07 by slevaslo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ OBJSBONUS	= ${SRCSBONUS:.c=.o}
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror(t_data *data)
 RM = rm -rf
 
 all: ${NAME}

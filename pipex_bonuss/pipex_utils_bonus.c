@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:38:08 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/04/13 13:33:01 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:13:30 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ char	*path_is_ok(char **paths, char *cmd)
 	return (NULL);
 }
 
-char	*find_path(char *cmd, char **envp)
+char	*find_path(char *cmd, char **envp, t_data *data)
 {
 	char	**paths;
 	int		i;
 	char	*str;
 
 	i = 0;
+	(void) data;
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
@@ -85,9 +86,11 @@ char	*find_path(char *cmd, char **envp)
 	return (str);
 }
 
-void	error(void)
+void	error(t_data *data)
 {
-	perror("\033[31;5mError\033[0m ");
+	(void)data;
+	free(data->pid);
+	perror("\033[31;5merror\033[0m ");
 	exit(EXIT_FAILURE);
 }
 
@@ -97,8 +100,8 @@ void	not_find(char **mycmdargs)
 	if (mycmdargs[0])
 	{
 		ft_putstr_fd(mycmdargs[0], 2);
-		ft_freetab(mycmdargs);
 	}
+	ft_freetab(mycmdargs);
 	ft_putstr_fd("\n", 2);
 	exit(EXIT_FAILURE);
 }

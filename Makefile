@@ -41,7 +41,7 @@ clean:
 
 fclean: 	clean
 					@rm -f $(NAME)
-					@rm -f ${PROG}
+					@rm -f ${PROG} ${PROG_B}
 					@echo "\nDelete ALL!\n"
 
 re:			fclean all

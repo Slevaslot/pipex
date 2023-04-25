@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:38:08 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/25 15:01:06 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:33:18 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t n)
 
 void	error(void)
 {
-	perror("\033[31;5mError\033[0m");
+	perror("\033[31;5merror\033[0m");
 	exit(EXIT_FAILURE);
 }
 

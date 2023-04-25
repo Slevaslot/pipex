@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:14:39 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/04/10 16:14:30 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:59:52 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ char	*find_path(char *cmd, char **envp)
 	while (envp && envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	if (!envp || !envp[i])
-		return (NULL);
-	else
-		paths = ft_split(envp[i] + 5, ':');
+		return (ft_putstr_fd("Ya pas d'env poto, donc : ", 2), NULL);
+	paths = ft_split(envp[i] + 5, ':');
 	i = -1;
 	while (paths[++i])
 	{
@@ -74,8 +73,8 @@ void	second_process(char **str, char **str1, int *end)
 	outfile = open(str[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (outfile == -1)
 	{
-		close(end[1]);
-		close(end[0]);
+		close_fd(&end[1]);
+		close_fd(&end[0]);
 		error();
 		return ;
 	}
@@ -83,9 +82,9 @@ void	second_process(char **str, char **str1, int *end)
 		error();
 	if (dup2(end[0], STDIN_FILENO) == -1)
 		error();
-	close (end[1]);
-	close(outfile);
-	close(end[0]);
+	close_fd(&end[1]);
+	close_fd(&outfile);
+	close_fd(&end[0]);
 	exec_process(str[3], str1);
 }
 
@@ -96,8 +95,8 @@ void	first_process(char **str, char **str1, int *end)
 	infile = open(str[1], O_RDONLY, 0777);
 	if (infile == -1)
 	{
-		close(end[1]);
-		close(end[0]);
+		close_fd(&end[1]);
+		close_fd(&end[0]);
 		error();
 		return ;
 	}
@@ -105,9 +104,9 @@ void	first_process(char **str, char **str1, int *end)
 		error();
 	if (dup2(infile, STDIN_FILENO) == -1)
 		error();
-	close(end[1]);
-	close(end[0]);
-	close(infile);
+	close_fd(&end[1]);
+	close_fd(&end[0]);
+	close_fd(&infile);
 	exec_process(str[2], str1);
 }
 
@@ -133,8 +132,8 @@ int	main(int ac, char **str, char **envp)
 		error();
 	if (pid_child1 == 0)
 		second_process(str, envp, end);
-	close(end[1]);
-	close(end[0]);
+	close_fd(&end[1]);
+	close_fd(&end[0]);
 	waitpid(pid_child, NULL, 0);
 	waitpid(pid_child1, NULL, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:03:18 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/25 16:49:58 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:34:42 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,23 @@ size_t	ft_strlengnl(char *str)
 	return (i);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int to_free)
 {
-	static char		*left_line[4096];
+	static char		*left_line;
 	char			*line_retour;
 
+	if (to_free)
+	{
+		free(left_line);
+		return (NULL);
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (0);
-	left_line[fd] = left_read(fd, left_line[fd]);
-	if (!left_line[fd])
+	left_line = left_read(fd, left_line);
+	if (!left_line)
 		return (NULL);
-	line_retour = new_line(left_line[fd]);
-	left_line[fd] = left_new_line(left_line[fd]);
+	line_retour = new_line(left_line);
+	left_line = left_new_line(left_line);
 	return (line_retour);
 }
 

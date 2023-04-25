@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:47:35 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/03/25 14:18:45 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:14:14 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <string.h>
 
+void	close_fd(int *fd);
 char	*ft_join(char *str, char *sep);
 void	pipex(char **str, char **str1);
 void	exec_process(char *str, char **envp);
