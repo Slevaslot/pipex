@@ -28,8 +28,13 @@ void	exec_process(t_data *data, char *str, char **envp)
 	path = find_path(mycmdargs[0], envp, data);
 	if (!path)
 	{
+		close_fd(&data->pipes[0]);
+		close_fd(&data->pipes[1]);
+		close_fd(&data->here_doc[0]);
+		close_fd(&data->prev);
 		free(data->pid);
 		not_find(mycmdargs);
+		return ;
 	}
 	execve(path, mycmdargs, envp);
 	ft_freetab(mycmdargs);

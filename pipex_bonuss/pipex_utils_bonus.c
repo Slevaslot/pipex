@@ -73,8 +73,12 @@ char	*find_path(char *cmd, char **envp, t_data *data)
 	(void) data;
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+	if (!envp || !envp[i])
+		return (ft_putstr_fd("Ya pas d'env poto, donc : ", 2), NULL);
+	while (envp && envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
+	if (!envp || !envp[i])
+		return (ft_putstr_fd("Ya pas d'env poto, donc : ", 2), NULL);
 	paths = ft_split(envp[i] + 5, ':');
 	if (!paths)
 		return (ft_freetab(paths), NULL);
