@@ -6,7 +6,7 @@
 /*   By: slevaslo <slevaslo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 14:48:01 by slevaslo          #+#    #+#             */
-/*   Updated: 2023/04/13 17:15:40 by slevaslo         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:39:46 by slevaslo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,8 @@ void	exec_process(t_data *data, char *str, char **envp)
 	path = find_path(mycmdargs[0], envp, data);
 	if (!path)
 	{
-		close_fd(&data->pipes[0]);
-		close_fd(&data->pipes[1]);
-		close_fd(&data->here_doc[0]);
-		close_fd(&data->prev);
 		free(data->pid);
 		not_find(mycmdargs);
-		return ;
 	}
 	execve(path, mycmdargs, envp);
 	ft_freetab(mycmdargs);
